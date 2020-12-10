@@ -19,7 +19,7 @@ jobs:
         uses: actions/checkout@v2
 
       - name: Run
-        run: go run cmd/main.go
+        run: cd cmd & go build -o
 
   #     - name: Read Docker Image Identifiers
   #       id: docker_config
