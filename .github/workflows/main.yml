@@ -20,7 +20,7 @@ jobs:
         go-version: '^1.13.1' # The Go version to download (if necessary) and use.
     - uses: actions/cache@v2
       with:
-        path: /home/runner/go/pkg/mod
+        path: /tmp/gopkgcache
         key: ${{ runner.os }}-go-${{ hashFiles('**/go.sum') }}
         restore-keys: |
           ${{ runner.os }}-go-
