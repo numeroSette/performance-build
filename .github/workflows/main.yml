@@ -24,7 +24,8 @@ jobs:
         key: ${{ runner.os }}-go-${{ hashFiles('**/go.sum') }}
         restore-keys: |
           ${{ runner.os }}-go-
-    - run: cd cmd && go build -o bin
+    - run: go env          
+    # - run: cd cmd && go build -o bin
     
   #     - name: Read Docker Image Identifiers
   #       id: docker_config
