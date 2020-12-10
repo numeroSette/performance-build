@@ -12,15 +12,22 @@ jobs:
 
   build:
     name: Build application
-    runs-on: ubuntu-20.04
+    runs-on: ubuntu-latest
     steps:
+    - uses: actions/checkout@v2
+    - uses: actions/cache@v2
+      with:
+        path: ~/go/pkg/mod
+        key: ${{ runner.os }}-go-${{ hashFiles('**/go.sum') }}
+        restore-keys: |
+          ${{ runner.os }}-go-
 
-      - name: Checkout
-        uses: actions/checkout@v2
+    - uses: actions/setup-go@v2
+      with:
+        go-version: '^1.13.1' # The Go version to download (if necessary) and use.
 
-      - name: Run
-        run: cd cmd & go build -o
-
+    - run: cd cmd && go build -o bin
+    
   #     - name: Read Docker Image Identifiers
   #       id: docker_config
   #       run: echo ::set-output name=image_repository::$(echo ${{ github.repository }} | tr '[:upper:]' '[:lower:]')
