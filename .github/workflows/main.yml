@@ -7,7 +7,7 @@ on:
       - work-in-progress
   
 env:
-  IMAGE_NAME: service
+  IMAGE_NAME: application
 
 jobs:
 
