@@ -20,11 +20,11 @@ jobs:
         go-version: '^1.13.1' # The Go version to download (if necessary) and use.
     - uses: actions/cache@v2
       with:
-        path: ${GOMODCACHE}
+        path: $GOMODCACHE
         key: ${{ runner.os }}-go-${{ hashFiles('**/go.sum') }}
         restore-keys: |
           ${{ runner.os }}-go-
-    - run: echo ${GOMODCACHE}        
+    - run: echo $GOMODCACHE        
     # - run: cd cmd && go build -o bin
     
   #     - name: Read Docker Image Identifiers
