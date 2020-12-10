@@ -4,8 +4,7 @@ on:
   push:
     branches:
       - main
-      - work-in-progress
-  
+
 env:
   IMAGE_NAME: application
 
@@ -60,17 +59,17 @@ jobs:
       - name: Log into registry
         run: echo "${{ secrets.GITHUB_TOKEN }}" | docker login docker.pkg.github.com -u ${{ github.actor }} --password-stdin
       
-      - name: Pull service image
-        run: docker pull docker.pkg.github.com/${{ steps.docker_config.outputs.image_repository }}/service:latest
+      - name: Pull application image
+        run: docker pull docker.pkg.github.com/${{ steps.docker_config.outputs.image_repository }}/application:latest
 
-      - name: Run service
+      - name: Run application
         run: |
           docker run --rm \
-            --name service \
+            --name application \
             -d \
             -p 8080:8080 \
             -p 8081:8081 \
-            docker.pkg.github.com/${{ steps.docker_config.outputs.image_repository }}/service:latest
+            docker.pkg.github.com/${{ steps.docker_config.outputs.image_repository }}/application:latest
 
       - name: Test URL response (/get-random-number)
         run: curl -fv http://localhost:8080/get-random-number
@@ -82,10 +81,10 @@ jobs:
         run: curl -fv http://localhost:8081/metrics
 
       - name: Benchmark method GetRandomNumber (/get-random-number)
-        run: docker exec -i service bash -c "cd cmd/get-random-number && go test -run=Bench -bench=."
+        run: docker exec -i application bash -c "cd cmd/get-random-number && go test -run=Bench -bench=."
 
       - name: Benchmark method GetRandomNumberNative (/get-random-number-native)
-        run: docker exec -i service bash -c "cd cmd/get-random-number-native && go test -run=Bench -bench=."
+        run: docker exec -i application bash -c "cd cmd/get-random-number-native && go test -run=Bench -bench=."
 
-      - name: Stop service
-        run: docker stop service
+      - name: Stop application
+        run: docker stop application
