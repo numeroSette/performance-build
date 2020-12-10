@@ -27,12 +27,12 @@ jobs:
     - run: go env          
     - run: cd cmd && go build -o bin
     
-  #     - name: Read Docker Image Identifiers
-  #       id: docker_config
-  #       run: echo ::set-output name=image_repository::$(echo ${{ github.repository }} | tr '[:upper:]' '[:lower:]')
+      # - name: Read Docker Image Identifiers
+      #   id: docker_config
+      #   run: echo ::set-output name=image_repository::$(echo ${{ github.repository }} | tr '[:upper:]' '[:lower:]')
   
-  #     - name: Build image
-  #       run: docker build . --file Dockerfile --tag $IMAGE_NAME
+      - name: Build image
+        run: docker build . --file Dockerfile --tag $IMAGE_NAME
 
   #     - name: Log into registry
   #       run: echo "${{ secrets.GITHUB_TOKEN }}" | docker login docker.pkg.github.com -u ${{ github.actor }} --password-stdin
