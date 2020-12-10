@@ -25,7 +25,7 @@ jobs:
         restore-keys: |
           ${{ runner.os }}-go-
     - run: go env          
-    # - run: cd cmd && go build -o bin
+    - run: cd cmd && go build -o bin
     
   #     - name: Read Docker Image Identifiers
   #       id: docker_config
